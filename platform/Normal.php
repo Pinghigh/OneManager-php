@@ -164,25 +164,8 @@ function setConfig($arr, $disktag = '')
     $prestr = '<?php $configs = \'' . PHP_EOL;
     $aftstr = PHP_EOL . '\';';
     $response = file_put_contents($configPath, $prestr . json_encode($envs, JSON_PRETTY_PRINT) . $aftstr);
-    if ($response>0) return json_encode( [ 'response' => 'success' ] );
-
-    $filename = '.data';
-
-    if (file_exists($filename)) {
-        echo "The file $filename exists";
-    } else {
-        echo "The file $filename does not exist";
-    }
-
-    
-    $filename = '.data/config.php';
-
-    if (file_exists($filename)) {
-        echo "The file $filename exists";
-    } else {
-        echo "The file $filename does not exist";
-    }
-    
+    if ($response>0) return json_encode( [ 'response' => 'success' ] );    
+    if is_writable(.data/config.php) echo "config.php is writable";
     return json_encode( [ 'message' => 'Failed to write config.', 'code' => 'failed' ] );
 }
 
