@@ -25,21 +25,6 @@ function getpath()
     return $path;
 }
 
-function get_disk_total(int $total) : string
-{
-    $config = [
-        '3' => 'GB',
-        '2' => 'MB',
-        '1' => 'KB'
-    ];
-    foreach($config as $key => $value){
-        if($total > pow(1024, $key)){
-            return round($total / pow(1024,$key)).$value;
-        }
-        return $total . 'B';
-    }
-}
-
 function getGET()
 {
     if (!$_POST) {
@@ -180,7 +165,24 @@ function setConfig($arr, $disktag = '')
     $aftstr = PHP_EOL . '\';';
     $response = file_put_contents($configPath, $prestr . json_encode($envs, JSON_PRETTY_PRINT) . $aftstr);
     if ($response>0) return json_encode( [ 'response' => 'success' ] );
-    echo '[DEBUG] 当前磁盘的剩余空间：' . get_disk_total(disk_free_space('.')) ;
+
+    $filename = '.data';
+
+    if (file_exists($filename)) {
+        echo "The file $filename exists";
+    } else {
+        echo "The file $filename does not exist";
+    }
+
+    
+    $filename = '.data/config.php';
+
+    if (file_exists($filename)) {
+        echo "The file $filename exists";
+    } else {
+        echo "The file $filename does not exist";
+    }
+    
     return json_encode( [ 'message' => 'Failed to write config.', 'code' => 'failed' ] );
 }
 
