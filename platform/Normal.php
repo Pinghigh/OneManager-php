@@ -164,16 +164,7 @@ function setConfig($arr, $disktag = '')
     $prestr = '<?php $configs = \'' . PHP_EOL;
     $aftstr = PHP_EOL . '\';';
     $response = file_put_contents($configPath, $prestr . json_encode($envs, JSON_PRETTY_PRINT) . $aftstr);
-    if ($response>0) return json_encode( [ 'response' => 'success' ] );    
-
-    $myfile = "./.data/config.php";
-    
-    if (is_writable($myfile)) {
-        echo "此文件可写。", "/n";
-    } else {
-        echo "此文件不可写。", "/n";
-    }
-    
+    if ($response>0) return json_encode( [ 'response' => 'success' ] );        
     return json_encode( [ 'message' => 'Failed to write config.', 'code' => 'failed' ] );
 }
 
