@@ -1,0 +1,2 @@
+[start]
+cmd = "perl /assets/prestart.pl /app/nginx.template.conf /nginx.conf && chmod +x ./writeable.sh && ./writeable.sh && (php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)"
